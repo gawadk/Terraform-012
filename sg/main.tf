@@ -1,14 +1,14 @@
 provider "aws" {
-    region = "eu-west-2"
+    region = "us-east-1"
 }
 
-resource "aws_instance" "ec2" {
-    ami = "ami-032598fcc7e9d1c7a"
+resource "aws_instance" "MyEc2" {
+    ami = "ami-09d3b3274b6c5d4aa"
     instance_type = "t2.micro"
-    security_groups = [aws_security_group.webtraffic.name]
+    security_groups = [aws_security_group.Mywebtraffic.name]
 }
 
-resource "aws_security_group" "webtraffic" {
+resource "aws_security_group" "Mywebtraffic" {
     name = "Allow HTTPS"
 
     ingress {
@@ -24,4 +24,12 @@ resource "aws_security_group" "webtraffic" {
         protocol = "TCP"
         cidr_blocks = ["0.0.0.0/0"]
     }
+}
+
+output "Mywebtraffic-SG" {
+    value = aws_security_group.Mywebtraffic.arn
+}
+
+output "MyEc2" {
+    value = aws_instance.MyEc2.id
 }

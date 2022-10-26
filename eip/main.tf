@@ -1,16 +1,20 @@
 provider "aws" {
-    region = "eu-west-2"
+    region = "us-east-1"
 }
 
-resource "aws_instance" "ec2" {
-    ami = "ami-032598fcc7e9d1c7a"
+resource "aws_instance" "MyEc2" {
+    ami = "ami-09d3b3274b6c5d4aa"
     instance_type = "t2.micro"
 }
 
-resource "aws_eip" "elasticeip" {
-    instance = aws_instance.ec2.id
+resource "aws_eip" "MyElasticeip" {
+    instance = aws_instance.MyEc2.id
 }
 
-output "EIP" {
-    value = aws_eip.elasticeip.public_ip
+output "MyElasticeip" {
+    value = aws_eip.MyElasticeip.public_ip
+}
+
+output "MyEc2" {
+    value = aws_instance.MyEc2.id
 }

@@ -1,25 +1,25 @@
 provider "aws" {
-    region = "eu-west-2"
+    region = "us-east-1"
 }
 
 variable "ingressrules" {
     type = list(number)
-    default = [80,443]
+    default = [80,443,8443,9443]
 }
 
 variable "egressrules" {
     type = list(number)
-    default = [80,443,25,3306,53,8080]
+    default = [80,443,25,3306,53,8080,8888]
 }
 
-resource "aws_instance" "ec2" {
-    ami = "ami-032598fcc7e9d1c7a"
+resource "aws_instance" "MyEc2" {
+    ami = "ami-09d3b3274b6c5d4aa"
     instance_type = "t2.micro"
-    security_groups = [aws_security_group.webtraffic.name]
+    security_groups = [aws_security_group.MyWebtraffic-SG.name]
 }
 
-resource "aws_security_group" "webtraffic" {
-    name = "Allow HTTPS"
+resource "aws_security_group" "MyWebtraffic-SG" {
+    name = "MyWebTraffic - SG - Allow HTTPS"
 
     dynamic "ingress" {
         iterator = port 

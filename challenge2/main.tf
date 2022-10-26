@@ -1,9 +1,9 @@
 provider "aws" {
-    region = "eu-west-2"
+    region = "us-east-1"
 }
 
 resource "aws_instance" "db" {
-    ami = "ami-032598fcc7e9d1c7a"
+    ami = "ami-081dc0707789c2daf"
     instance_type = "t2.micro"
 
     tags = {
@@ -12,7 +12,7 @@ resource "aws_instance" "db" {
 }
 
 resource "aws_instance" "web" {
-    ami = "ami-032598fcc7e9d1c7a"
+    ami = "ami-081dc0707789c2daf"
     instance_type = "t2.micro"
     security_groups = [aws_security_group.web_traffic.name]
     user_data = file("server-script.sh")
@@ -43,7 +43,7 @@ resource "aws_security_group" "web_traffic" {
         for_each = var.ingress
         content {
             from_port = port.value
-            to_port = port. value
+            to_port = port.value
             protocol = "TCP"
             cidr_blocks = ["0.0.0.0/0"]
         }
@@ -54,7 +54,7 @@ resource "aws_security_group" "web_traffic" {
         for_each = var.egress
         content {
             from_port = port.value
-            to_port = port. value
+            to_port = port.value
             protocol = "TCP"
             cidr_blocks = ["0.0.0.0/0"]
         }
